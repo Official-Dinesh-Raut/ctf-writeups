@@ -1,8 +1,8 @@
 # Natas Level 1: Blocked right-click  
 
-- **Platform:** OverTheWire Natas  
-- **Vulnerability class:** Client-side restriction bypass / information disclosure  
-- **Goal:** Find the password for the next level, even though right-clicking is blocked.  
+**Platform:** OverTheWire Natas  
+**Vulnerability class:** Client-side restriction bypass / information disclosure  
+**Goal:** Find the password for the next level, even though right-clicking is blocked.  
 
 ## Recon  
 
@@ -12,18 +12,18 @@ The page said that the password on the page but right-click was probibited. This
 
 I bypassed the block by viewing the source code without using the right-click menu:
 
-- Ctrl+U` to open view-source, or `F12` for dev tools.
+- `Ctrl+U` to open view-source, or `F12` for dev tools.
 - Or request the page directly with curl:
 
         curl -u natas1:<PASSWORD_FROM_LEVEL_0> http://natas1.natas.labs.overthewire.org  
 
 ## Why it worked  
 
-The right-click block only changes the browser's menu behaviour. The server still sends the full HTML to my machine, and anything anything delivered to the cliend can be read by them using Keyboard shortcuts, dev tools, and tui tools like curl which can skip the right-click handler entirely.  
+The right-click block only changes the browser's menu behaviour. The server still sends the full HTML to my machine, and anything delivered to the client can be read by them using Keyboard shortcuts, dev tools, and tui tools like curl which can skip the right-click handler entirely.  
 
-## Detectign (SOC view)  
+## Detection (SOC view)  
 
-There is nothing to detect in the logs. It is one ordinary authenticated GET request, the same as any other legitimate visitor would send. This shows that limit of log-based detection: a cliend-side "protection" produces no extra traffic when it is bypassed.  
+There is nothing to detect in the logs. It is one ordinary authenticated GET request, the same as any other legitimate visitor would send. This shows the limit of log-based detection: a client-side "protection" produces no extra traffic when it is bypassed.  
 
 Weak signals at most:  
 - A `curl/x.x` User-Agent insted of a browser one
@@ -31,13 +31,13 @@ Weak signals at most:
 
 ## Fix  
 
-- Don't put secrets in HTML, comments, or JavaScript, since the cliend receives all of it.
+- Don't put secrets in HTML, comments, or JavaScript, since the client receives all of it.
 - Don't rely on blocking right-click, text selection, or dev tools. THey are cosmetic and can't be enforced.
 - Enforce access control on the server.  
 
 ## Takeaway  
 
-Cliend-side restrictions are not security controls. If the browser receives it, the user can see it.  
+Client-side restrictions are not security controls. If the browser receives it, the user can see it.  
 
 ## What I got wrong at first  
 
