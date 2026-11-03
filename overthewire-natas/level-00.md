@@ -1,4 +1,4 @@
-## Natas Level 0: Password in the HTML source
+# Natas Level 0: Password in the HTML source
 
 **Platform:** OverTheWire Natas  
 **Vulnerability class:** Information disclosure (sensitive data in client-side code)  
