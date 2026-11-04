@@ -12,7 +12,7 @@ The page said I was not logged in. The first request's response headers showed t
 set-Cookie: loggedin=0
 ```
 
-At first the browser's Storage tab showd no cookie, so I confirmed with `curl -v` that the server really was sending it. The name `loggedin` and the value `0` suggested asimple yes/no flag the server reads on each request.
+At first the browser's Storage tab showd no cookie, so I confirmed with `curl -v` that the server really was sending it. The name `loggedin` and the value `0` suggested a simple yes/no flag the server reads on each request.
 
 ## Exploitation
 
@@ -21,7 +21,7 @@ Cookies are stored by the client and send back at each request, so I can change 
 With curl, the same thing looks like this:
 
 ```
-curl -u natas5:<PASSWORD_FROM_LEVEL-4> -b "loggedin=<NEW_VALUE>" http://natas5.natas.lab.overthewire.org/
+curl -u natas5:<PASSWORD_FROM_LEVEL-4> -b "loggedin=<NEW_VALUE>" http://natas5.natas.labs.overthewire.org/
 ```
 
 The page switched from "not logged in" to showing the credentials for the next level.
